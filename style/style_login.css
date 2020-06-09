@@ -1,0 +1,95 @@
+body {
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:14px;
+}
+.registration_form {
+	margin:0 auto;
+	width:500px;
+	padding:14px;
+}
+label {
+	width: 10em;
+	float: left;
+	margin-right: 0.5em;
+	display: block
+}
+
+fieldset {
+	background:#EBF4FB none repeat scroll 0 0;
+	border:2px solid #B7DDF2;
+	width: 500px;
+}
+
+legend {
+	color: #fff;
+	background: #80D3E2;
+	border: 1px solid #781351;
+	padding: 2px 6px
+}
+
+.elements {
+	padding:10px;
+}
+
+p {
+	border-bottom:1px solid #B7DDF2;
+	color:#008;
+	font-size:14px;
+	margin-bottom:20px;
+	padding-bottom:10px;
+}
+a{
+    color:#0099FF;
+    font-weight:bold;
+}
+
+/* Box Style */
+ .success, .warning, .errormsgbox, .validation {
+	border: 1px solid;
+	margin: 0 auto;
+	padding:10px 5px 10px 60px;
+	background-repeat: no-repeat;
+	background-position: 10px center;
+     font-weight:bold;
+     width:450px;
+     
+}
+.success {  
+	color: #4F8A10;
+	background-color: #DFF2BF;
+}
+
+.errormsgbox { 
+	color: #D8000C;
+	background-color: #FFBABA;
+}
+
+.copy {
+	font-family:"Courier New", Courier, monospace;
+	font-size:11px;
+	color:#888;
+}
+
+ .btn-primary { color: #ffffff; background-color: #96BA5A; border-color: #A8CE6A; }
+ .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+	color: #ffffff;
+	background-color: #83AF39;
+	border-color: #A1C565;
+}
+
+ .btn-danger { color: #FFF; background-color: #F00; border-color: #900; }
+ .btn-danger:hover, .btn-danger:focus, .btn-danger:active {
+	color: #ffffff;
+	background-color: #903;
+	border-color: #903;
+}
+
+.btn{display:inline-block; padding:4px 14px; 
+     margin-bottom:0;font-size:14px;font-weight:bold;line-height:1.5;
+	 text-align:center;white-space:nowrap;
+	 cursor:pointer;border:1px solid transparent;
+	 border-radius:4px;
+	 -webkit-user-select:none;
+	 -moz-user-select:none;
+	 -ms-user-select:none;
+	 -o-user-select:none;user-select:none}
