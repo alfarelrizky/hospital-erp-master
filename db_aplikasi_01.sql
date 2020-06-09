@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jun 02, 2020 at 12:59 AM
--- Server version: 8.0.18
--- PHP Version: 7.3.13
+-- Host: 127.0.0.1
+-- Generation Time: Jun 09, 2020 at 04:18 PM
+-- Server version: 10.1.35-MariaDB
+-- PHP Version: 7.2.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,13 +25,62 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `perawatan`
+--
+
+CREATE TABLE `perawatan` (
+  `id_perawatan` int(11) NOT NULL,
+  `id_rawat_inap` int(11) NOT NULL,
+  `nama_dokter` varchar(50) NOT NULL,
+  `tanggal_periksa` date NOT NULL,
+  `tindakan` varchar(255) NOT NULL,
+  `obat` varchar(255) NOT NULL,
+  `anamase` varchar(255) NOT NULL,
+  `diagnosis` varchar(255) NOT NULL,
+  `status_pasien` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `perawatan`
+--
+
+INSERT INTO `perawatan` (`id_perawatan`, `id_rawat_inap`, `nama_dokter`, `tanggal_periksa`, `tindakan`, `obat`, `anamase`, `diagnosis`, `status_pasien`) VALUES
+(2, 10, 'Fa', '2020-06-03', 'suntik', 'bius', 'meninggal', 'stroke', 'PROSES PERAWATAN'),
+(5, 11, 'asd', '2019-12-30', 'asd', 'asd', 'dsf', 'afas', 'SEMBUH'),
+(6, 10, 'asd', '2019-11-30', 'asd', 'asdo', 'o', 'ks', 'SEMBUH'),
+(7, 10, 'Alfarel', '2020-06-10', 'pok', 'pok', 'pok', 'opk', 'PROSES PERAWATAN');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rawat_inap`
+--
+
+CREATE TABLE `rawat_inap` (
+  `id_rawat_inap` int(11) NOT NULL,
+  `id_rekam_medis` int(11) NOT NULL,
+  `dokter_penanggungjawab` varchar(50) NOT NULL,
+  `kelas_rawat_inap` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rawat_inap`
+--
+
+INSERT INTO `rawat_inap` (`id_rawat_inap`, `id_rekam_medis`, `dokter_penanggungjawab`, `kelas_rawat_inap`) VALUES
+(10, 1233819, 'Alfarel Rizqi', 'Kelas 2'),
+(11, 1236507, 'Sapi', 'Kelas 3');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_dokter`
 --
 
 CREATE TABLE `tbl_dokter` (
   `id_dokter` int(15) NOT NULL,
   `nama_dokter` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jenis_kelamin` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jenis_kelamin` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `alamat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `no_tlp` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -46,8 +95,8 @@ CREATE TABLE `tbl_dokter` (
 --
 
 INSERT INTO `tbl_dokter` (`id_dokter`, `nama_dokter`, `jenis_kelamin`, `alamat`, `no_tlp`, `email`, `spesialis`, `status`, `join_date`, `nomor_izin`) VALUES
-(1233819, 'Muhammad Aushafy Setyawan', 'laki-laki', 'Jepara, Jawa Tengah, Indonesia', '082221777014', 'aushafy@gmail.com', 'OBG1', 'tetap', '2019-09-02', 'SK02193013121'),
-(1236507, 'Djanggo', 'laki-laki', 'Pasar Senen, Jakarta Pusat, DKI Jakarta', '089998756555', 'djanggo_rusher@gmail.com', 'PUL1', 'tetap', '2019-01-01', 'SK02193013111');
+(1233819, 'Alfarel Rizqi', 'laki-laki', 'Tangerang, Banten, Indonesia', '082221777014', 'alfarelrizky99@gmail.com', 'OBG1', 'tetap', '2019-09-02', 'SK02193013121'),
+(1236507, 'Sapi', 'laki-laki', 'Pasar Senen, Jakarta Pusat, DKI Jakarta', '089998756555', 'cow@gmail.com', 'PUL1', 'tetap', '2019-01-01', 'SK02193013111');
 
 -- --------------------------------------------------------
 
@@ -90,7 +139,7 @@ INSERT INTO `tbl_pasien` (`id_pasien`, `nama_pasien`, `tgl_lahir`, `jenis_kelami
 --
 
 CREATE TABLE `tbl_spesialis` (
-  `spesialis` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `spesialis` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `bidang_spesialis` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `keterangan` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -133,20 +182,32 @@ CREATE TABLE `tbl_user_aplikasi` (
 --
 
 INSERT INTO `tbl_user_aplikasi` (`id_user`, `username`, `nama`, `no_tlp`, `email`, `password`, `status_user`, `role_user`) VALUES
-(1, 'ADMUSR1', 'Sarah Nur Laila', 0, 'sarah@email.com', '32250170a0dca92d53ec9624f336ca24', 'aktif', '1'),
-(2, 'ADMMR1', 'Luthfi Abdillah', 0, 'lutfhi@email.com', '32250170a0dca92d53ec9624f336ca24', 'aktif', '2'),
-(3, 'ADMMR2', 'Jaka Nurmanto', 0, 'janur@email.com', '32250170a0dca92d53ec9624f336ca24', 'aktif', '2'),
-(4, 'DR-012', 'dr. Wijaya, Sp.PD', 0, 'wijaaydr@rmail.com', '32250170a0dca92d53ec9624f336ca24', 'aktif', '3'),
-(5, 'DR-345', 'dr. Sisca sari', 0, 'siscasari@rmail.com', '32250170a0dca92d53ec9624f336ca24', 'aktif', '3'),
-(6, 'DR-245', 'dr. Maulani, Sp.OG', 0, 'dr_nay@gmail.com', '32250170a0dca92d53ec9624f336ca24', 'aktif', '3'),
-(7, 'DR-215', 'dr. Yasmin, Sp.B', 0, 'dr_yasmin@gmail.com', '32250170a0dca92d53ec9624f336ca24', 'aktif', '3'),
-(8, 'PD-10', 'Yudho Agustian', 0, 'yudo@mail.com', '32250170a0dca92d53ec9624f336ca24', 'aktif', '4'),
-(9, 'PD-07', 'Riani Nurwidhi', 0, 'nurwidi@mail.com', '32250170a0dca92d53ec9624f336ca24', 'aktif', '4'),
-(10, 'admin', 'admin', 2147483647, 'administrator@rsss.com', '0192023a7bbd73250516f069df18b500', 'aktif', '1');
+(1, 'ADMUSR1', 'Sarah Nur Laila', 0, 'sarah@email.com', '21232f297a57a5a743894a0e4a801fc3', 'aktif', '1'),
+(2, 'ADMMR1', 'Luthfi Abdillah', 0, 'lutfhi@email.com', '21232f297a57a5a743894a0e4a801fc3', 'aktif', '2'),
+(3, 'ADMMR2', 'Jaka Nurmanto', 0, 'janur@email.com', '21232f297a57a5a743894a0e4a801fc3', 'aktif', '2'),
+(4, 'DR-012', 'dr. Wijaya, Sp.PD', 0, 'wijaaydr@rmail.com', '21232f297a57a5a743894a0e4a801fc3', 'aktif', '3'),
+(5, 'DR-345', 'dr. Sisca sari', 0, 'siscasari@rmail.com', '21232f297a57a5a743894a0e4a801fc3', 'aktif', '3'),
+(6, 'DR-245', 'dr. Maulani, Sp.OG', 0, 'dr_nay@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 'aktif', '3'),
+(7, 'DR-215', 'dr. Yasmin, Sp.B', 0, 'dr_yasmin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 'aktif', '3'),
+(8, 'PD-10', 'Yudho Agustian', 0, 'yudo@mail.com', '21232f297a57a5a743894a0e4a801fc3', 'aktif', '4'),
+(9, 'PD-07', 'Riani Nurwidhi', 0, 'nurwidi@mail.com', '21232f297a57a5a743894a0e4a801fc3', 'aktif', '4'),
+(10, 'admin', 'admin', 2147483647, 'administrator@rsss.com', '21232f297a57a5a743894a0e4a801fc3', 'aktif', '1');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `perawatan`
+--
+ALTER TABLE `perawatan`
+  ADD PRIMARY KEY (`id_perawatan`);
+
+--
+-- Indexes for table `rawat_inap`
+--
+ALTER TABLE `rawat_inap`
+  ADD PRIMARY KEY (`id_rawat_inap`);
 
 --
 -- Indexes for table `tbl_dokter`
@@ -167,26 +228,20 @@ ALTER TABLE `tbl_spesialis`
   ADD PRIMARY KEY (`spesialis`);
 
 --
--- Indexes for table `tbl_user_aplikasi`
---
-ALTER TABLE `tbl_user_aplikasi`
-  ADD PRIMARY KEY (`id_user`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `tbl_pasien`
+-- AUTO_INCREMENT for table `perawatan`
 --
-ALTER TABLE `tbl_pasien`
-  MODIFY `id_pasien` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+ALTER TABLE `perawatan`
+  MODIFY `id_perawatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `tbl_user_aplikasi`
+-- AUTO_INCREMENT for table `rawat_inap`
 --
-ALTER TABLE `tbl_user_aplikasi`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+ALTER TABLE `rawat_inap`
+  MODIFY `id_rawat_inap` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
