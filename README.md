@@ -1,5 +1,5 @@
 # hospital-erp-master
-Aplication Hospital Erp Master
+Application Hospital Erp Master
 
 Develop by : 
 - Alfarel Rizqi Izrulliyanto
