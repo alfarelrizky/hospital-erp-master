@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class perawatan extends CI_Controller
+class Perawatan extends CI_Controller
 {
 	function __construct()
 	{
@@ -18,9 +18,9 @@ class perawatan extends CI_Controller
 		$data['data'] = $this->Model_rawat->select_perawatan()->result_array();
 		$this->load->view('view_list_perawatan', $data);
 	}
-	public function tambah()
-	{
-		$data['spesialis'] = $this->Model_rawat->select_rawat_inap()->result_array();
+
+	public function tambah($id){
+		$data['spesialis'] = $this->Model_perawatan->get_perawatan($id);
 		$this->load->view('view_tambah_perawatan', $data);
 	}
 

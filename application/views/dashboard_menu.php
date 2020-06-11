@@ -108,7 +108,7 @@
             <!--Menu / Modul Tambahan-->
 
                 <td width="190" align="center" valign="middle">
-                <a href="<?= base_url('rawat') ?>">
+                <a href="<?= base_url('rawat_inap') ?>">
                 <img src="<?php echo base_url()?>/style/images/bed.png" width="85" class="img3" /></a>
                 <br><br><b> RAWAT INAP </b><br></td> 
 
