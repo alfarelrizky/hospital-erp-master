@@ -38,7 +38,7 @@ class Model_rawatinap extends CI_Model
     }
 
 
-      // batas kerjaannya aushafy, di bawah adalah kerjaannya farel
+    // batas kerjaannya aushafy, di bawah adalah kerjaannya farel
 
 
     //hitung jumlah row 
@@ -56,16 +56,16 @@ class Model_rawatinap extends CI_Model
         return $this->db->get('tbl_dokter')->result();
     }
 
-    function insert_rawat_inap($id,$dok,$stat){
-        $data_dokter = array(
+    function insert_rawat_inap($id,$dokter,$kelas){
+        $data_rawatinap = array(
             'id_rawat_inap' => null,
             'id_rekam_medis' => $id,
-            'dokter_penanggungjawab' => $dok,
-            'kelas_rawat_inap' => $stat
+            'dokter_penanggungjawab' => $dokter,
+            'kelas_rawat_inap' => $kelas
         );
 
-        $this->db->insert("rawat_inap", $data_dokter);
-        return $data_dokter;
+        $this->db->insert("rawat_inap", $data_rawatinap);
+        return $data_rawatinap;
     }
 
     function insert_perawatan($id, $namadokter, $tanggalperiksa, $tindakan, $obat, $anamase, $diagnosis, $statuspasien)
