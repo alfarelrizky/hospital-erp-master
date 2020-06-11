@@ -1,5 +1,5 @@
 <?php
-$datacurrent = $this->Model_rawat->select_rawat_inap()->result_array();
+$datacurrent = $this->Model_perawatan->select_rawat_inap()->result_array();
 //  $datacurrent = $this->Model_rawat->select_tbl_dokter()->result_array();
 defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <!DOCTYPE html>

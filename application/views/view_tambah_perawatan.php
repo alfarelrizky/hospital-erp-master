@@ -1,4 +1,11 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
+<?php defined('BASEPATH') or exit('No direct script access allowed');
+foreach ($data as $output) {
+    $rawatinap = $output['id_rawat_inap'];
+    $rekammedis = $output['id_rekam_medis'];
+    $dokter      = $output['dokter_penanggungjawab'];
+    $kelas      = $output['kelas_rawat_inap'];
+}
+?>
 <!DOCTYPE html>
 <html>
 
@@ -34,22 +41,14 @@
                     <tr>
                         <td>ID / No.RM Pasien</td>
                         <td width="10">:</td>
-                        <td><select onchange='dokter()' name='txt_id' id='txt_spesialis'>
-                                <?php
-                                // menampilkan option list dari database
-                                echo "  <option value='' disabled selected>No.RM Pasien</option>";
-                                foreach ($spesialis as $row_spesialis) {
-                                    echo " <option value='" . $row_spesialis['id_rawat_inap'] . "'>" . $row_spesialis['id_rekam_medis'] . "</option>";
-                                }
-                                ?>
-                            </select>
+                        <td><input type='text' name='txt_id' id='txt_spesialis' value='<?php echo $rawatinap; ?>' placeholder="<?php echo $rekammedis; ?>" readonly>
                         </td>
                     </tr>
                     <tr>
                         <td>Dokter PJ</td>
                         <td>:</td>
                         <td>
-                            <input type="text" name="txt_dokter" id='txt_dokter' readonly>
+                            <input type="text" name="txt_dokter" id='txt_dokter' value='<?php echo $dokter; ?>' readonly>
                         </td>
                     </tr>
 
@@ -57,9 +56,27 @@
                         <td>Kelas </td>
                         <td>:</td>
                         <td>
-                            <input type="radio" name="txt_status" value="Kelas 1" id='stat1' disabled> Kelas 1
-                            <input type="radio" name="txt_status" value="Kelas 2" id='stat2' disabled> Kelas 2
-                            <input type="radio" name="txt_status" value="Kelas 3" id='stat3' disabled> Kelas 3
+                            <?php
+                            if ($kelas == 'kelas1') {
+                            ?>
+                                <input type="radio" name="txt_status" value="Kelas 1" id='stat1' disabled checked> Kelas 1
+                                <input type="radio" name="txt_status" value="Kelas 2" id='stat2' disabled> Kelas 2
+                                <input type="radio" name="txt_status" value="Kelas 3" id='stat3' disabled> Kelas 3
+                            <?php
+                            } elseif ($kelas == 'kelas2') {
+                            ?>
+                                <input type="radio" name="txt_status" value="Kelas 1" id='stat1' disabled> Kelas 1
+                                <input type="radio" name="txt_status" value="Kelas 2" id='stat2' disabled checked> Kelas 2
+                                <input type="radio" name="txt_status" value="Kelas 3" id='stat3' disabled> Kelas 3
+                            <?php
+                            } else {
+                            ?>
+                                <input type="radio" name="txt_status" value="Kelas 1" id='stat1' disabled> Kelas 1
+                                <input type="radio" name="txt_status" value="Kelas 2" id='stat2' disabled> Kelas 2
+                                <input type="radio" name="txt_status" value="Kelas 3" id='stat3' disabled checked> Kelas 3
+                            <?php
+                            }
+                            ?>
                         </td>
                     </tr>
                     <tr>
