@@ -10,13 +10,13 @@
 <body>
     <div id="container">
         <div id="body">
-            <h1>Pendaftaran Rawat Inap.</h1>
+            <h1>Pendaftaran Rawat Inap</h1>
             <?php if (validation_errors()) { ?> <div style="width:500px; background-color:#FCC; padding:5px; 
                margin-left:auto; margin-right:auto;">
                     <?php echo validation_errors(); ?> <br>
                 </div>
             <?php } ?>
-            <form name="form1" method="post" action="<?php echo base_url() ?>Rawat/daftar_rawat_inap">
+            <form name="form1" method="post" action="<?php echo base_url() ?>Rawat_inap/proses_daftar_rawat_inap">
                 <table id="gp_tabel" width="50%" style='box-shadow: -3px 3px #b5adad;' align='center'>
                     <?php
                     if (empty($this->session->flashdata('alert'))) {
@@ -34,15 +34,19 @@
                     <tr>
                         <td>ID / No.RM Pasien</td>
                         <td width="10">:</td>
-                        <td><select onchange='dokter()' name='txt_id' id='txt_spesialis'>
-                                <?php
-                                // menampilkan option list dari database
-                                echo "  <option value='' disabled selected>No.RM Pasien</option>";
-                                foreach ($spesialis as $row_spesialis) {
-                                    echo " <option value='" . $row_spesialis[id_dokter] . "'>" . $row_spesialis[id_dokter] . "</option>";
-                                }
-                                ?>
-                            </select>
+                        <td>
+                        <input type="text" name="txt_id_rmpasien" id="txt_id_rmpasien">
+
+
+                        <!-- <select onchange='dokter()' name='txt_id_rawatinap' id='txt_id_rawatinap'>
+                            <?php
+                            // menampilkan option list dari database
+                            /*echo "  <option value='' disabled selected>No.RM Pasien</option>";
+                            foreach ($spesialis as $row_spesialis) {
+                                echo " <option value='" . $row_spesialis[id_dokter] . "'>" . $row_spesialis[id_dokter] . "</option>";
+                            }*/
+                            ?>
+                        </select> -->
                         </td>
 
                     </tr>
@@ -50,7 +54,7 @@
                         <td>Input Dokter PJ</td>
                         <td>:</td>
                         <td>
-                            <input type="text" name="txt_dokter" id='txt_dokter' readonly>
+                            <input type="text" name="txt_dokter_pj" id='txt_dokter_pj'>
                         </td>
                     </tr>
 
@@ -58,9 +62,9 @@
                         <td>Pilih Kelas </td>
                         <td>:</td>
                         <td>
-                            <input type="radio" name="txt_status" value="Kelas 1"> Kelas 1
-                            <input type="radio" name="txt_status" value="Kelas 2"> Kelas 2
-                            <input type="radio" name="txt_status" value="Kelas 3"> Kelas 3
+                            <input type="radio" name="txt_kelas" value="Kelas 1"> Kelas 1
+                            <input type="radio" name="txt_kelas" value="Kelas 2"> Kelas 2
+                            <input type="radio" name="txt_kelas" value="Kelas 3"> Kelas 3
                         </td>
                     </tr>
                     <tr>
