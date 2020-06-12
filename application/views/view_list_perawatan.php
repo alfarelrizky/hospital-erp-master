@@ -1,4 +1,8 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
+<?php defined('BASEPATH') or exit('No direct script access allowed');
+     foreach ($data as $output) {
+          $idnya = $output['id_rawat_inap'];
+     }
+?>
 <!DOCTYPE html>
 <html>
 
@@ -47,7 +51,7 @@
                          <th>Diagnosis</th>
                          <th>Status Pasien</th>
                          <th>
-                              <a href='<?php echo base_url('perawatan/tambah') ?>' style='font-size: 12px;display: block;box-shadow: -1px 1px black;color: black;width: 70%;height: 16px;padding: 5px 5px 10px 5px;color: black;background-color: #75ff86;Float: right;'>TAMBAH PERAWATAN</a>
+                              <a href="<?php echo base_url().'perawatan/tambah/'.$idnya ?>" style='font-size: 12px;display: block;box-shadow: -1px 1px black;color: black;width: 70%;height: 16px;padding: 5px 5px 10px 5px;color: black;background-color: #75ff86;Float: right;'>TAMBAH PERAWATAN</a>
                          </th>
                     </tr>
                     <?php $i = 1;
@@ -107,11 +111,11 @@
 
      }
      const tanyain = (i, id, tgl, pj) => {
-          let yakin = confirm(`Yakin Menghapus Data No Rm.${tgl} dengan Dokter Pemeriksa ${pj}?`);
+          let yakin = confirm(`Yakin Menghapus Data No Rm.${id} dengan Dokter Pemeriksa ${pj}?`);
 
           if (yakin) {
                getBaseUrl();
-               window.location = uri + 'perawatan/hapus/' + i
+               window.location = uri + 'perawatan/hapus/' + i + '/'+ id
           }
      }
 
