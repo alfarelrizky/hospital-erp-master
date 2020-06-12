@@ -99,7 +99,7 @@ class Rawat_inap extends CI_Controller
 
 	// fungsi registrasi rawat inap
 	public function registrasi_rawatinap(){
-		$this->load->view('#');
+		$this->load->view('view_form_registrasi_rawatinap');
 	}
 
 	// fungsi cari rawat inap
@@ -107,44 +107,33 @@ class Rawat_inap extends CI_Controller
 		$this->load->view('#');
 	}
 
-	public function daftar_rawat_inap(){
+	public function proses_daftar_rawat_inap(){
 		//valid
-		$this->form_validation->set_rules('txt_id' , 'ID' , 'required');
-		$this->form_validation->set_rules('txt_dokter','DOKTER PENANGGUNG JAWAB','required');
-		$this->form_validation->set_rules('txt_status','STATUS KELAS','required');
+		$this->form_validation->set_rules('txt_id_rmpasien' , 'ID RM Pasien' , 'required');
+		$this->form_validation->set_rules('txt_dokter_pj','DOKTER PENANGGUNGJAWAB','required');
+		$this->form_validation->set_rules('txt_kelas','KELAS','required');
 
 		//cek
 		if ($this->form_validation->run() == FALSE) {
-			$data['spesialis'] = $this->Model_rawat->select_tbl_dokter()->result_array();
-			$this->load->view('view_rawat_inap', $data);
-		} else {
-			$id            	= (trim(html_escape($this->input->post('txt_id'))));
-			$dokter    		= (trim(html_escape($this->input->post('txt_dokter'))));
-			$kelas          = (trim(html_escape($this->input->post('txt_status'))));
+			// fungsi validasi masih belum complete!!!!!!!!!!!!!
 
-			$cekin = $this->Model_rawat->insert_rawat_inap($id,$dokter,$kelas);
+			// $data['spesialis'] = $this->Model_rawat->select_tbl_dokter()->result_array();
+			// $this->load->view('view_data_rawatinap', $data);
+
+			$this->load->view('view_form_registrasi_rawatinap');
+		} else {
+			$id            	= (trim(html_escape($this->input->post('txt_id_rmpasien'))));
+			$dokter    		= (trim(html_escape($this->input->post('txt_dokter_pj'))));
+			$kelas          = (trim(html_escape($this->input->post('txt_kelas'))));
+
+			$cekin = $this->Model_rawatinap->insert_rawat_inap($id,$dokter,$kelas);
 			if ($cekin == true) {
 				$this->session->set_flashdata('alert', 'PENDAFTARAN BERHASIL');
 			} else {
 				$this->session->set_flashdata('alert', 'PENDAFTARAN GAGAL');
 			}
 			//pulang
-			redirect('rawat');
+			redirect('rawat_inap');
 		}
-	}
-	public function list()
-	{
-
-		$this->load->view('view_list_proses');
-	}
-	public function rekap()
-	{
-
-		$this->load->view('view_rekap_pembayaran');
-	}
-	public function detail()
-	{
-
-		$this->load->view('view_detail_rekap');
 	}
 }
