@@ -1,9 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-$i   = $this->uri->segment(3);
-$sample = $this->Model_perawatan->get_id($i)->result_array();
-foreach ($sample as $output) {
-     $idnya = $output['id_rawat_inap'];
-}
+     foreach ($data as $output) {
+          $idnya = $output['id_rawat_inap'];
+     }
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,6 +15,7 @@ foreach ($sample as $output) {
      <div id="container">
           <div id="body">
                <h1>List Data Rawat Inap </h1>
+               <?php include "form_cari_perawatan.php"; ?>
                <a href='<?php echo base_url('Homepage') ?>'><button style='display:block;box-shadow: -1px 1px black;color:white;width:100px;height:30px;color:white;background-color:blue;Float:left;'> KEMBALI</button></a>
                <table id="gp_tabel" width="100%" style='box-shadow: -3px 3px #b5adad;' align='center'>
                     <?php
@@ -52,17 +51,9 @@ foreach ($sample as $output) {
                          <th>Anamase</th>
                          <th>Diagnosis</th>
                          <th>Status Pasien</th>
-                         <?php
-                         if (isset($idnya) and !empty($idnya)) {
-                         ?>
-                              <th>
-                                   <a href="<?php echo base_url() . 'perawatan/tambah/' . $idnya ?>" style='font-size: 12px;display: block;box-shadow: -1px 1px black;color: black;width: 70%;height: 16px;padding: 5px 5px 10px 5px;color: black;background-color: #75ff86;Float: right;'>TAMBAH PERAWATAN</a>
-                              </th>
-                         <?php
-                         } else {
-                         }
-                         ?>
-
+                         <th>
+                              <a href="<?php echo base_url().'perawatan/tambah/'.$idnya ?>" style='font-size: 12px;display: block;box-shadow: -1px 1px black;color: black;width: 70%;height: 16px;padding: 5px 5px 10px 5px;color: black;background-color: #75ff86;Float: right;'>TAMBAH PERAWATAN</a>
+                         </th>
                     </tr>
                     <?php $i = 1;
                     foreach ($data as $output) {
@@ -78,19 +69,12 @@ foreach ($sample as $output) {
                               <td><?php echo $output['anamase'] ?></td>
                               <td><?php echo $output['diagnosis'] ?></td>
                               <td name='<?php echo $output['status_pasien'] ?>'><?php echo $output['status_pasien'] ?></td>
-                              <?php
-                              if (isset($idnya) and $idnya != '') {
-                              ?>
-                                   <td>
-                                        <div style='display:block;width:100%;height:20px;padding:10px;'>
-                                             <a style='box-shadow: -1px 1px black;display:inline;color:white;background-color:green;' href='<?php echo site_url('perawatan/edit/' . $output['id_perawatan']) ?>'> EDIT</a>
-                                             <a style='box-shadow: -1px 1px black;display:inline;color:white;background-color:RED;' onclick="tanyain('<?php echo $output['id_perawatan']; ?>','<?php echo $output['id_rawat_inap']; ?>','<?php echo $output['tanggal_periksa']; ?>','<?php echo $output['nama_dokter']; ?>')"> HAPUS</a>
-                                        </div>
-                                   </td>
-                              <?php
-                              } else {
-                              }
-                              ?>
+                              <td>
+                                   <div style='display:block;width:100%;height:20px;padding:10px;'>
+                                        <a style='box-shadow: -1px 1px black;display:inline;color:white;background-color:green;' href='<?php echo site_url('perawatan/edit/' . $output['id_perawatan']) ?>'> EDIT</a>
+                                        <a style='box-shadow: -1px 1px black;display:inline;color:white;background-color:RED;' onclick="tanyain('<?php echo $output['id_perawatan']; ?>','<?php echo $output['id_rawat_inap']; ?>','<?php echo $output['tanggal_periksa']; ?>','<?php echo $output['nama_dokter']; ?>')"> HAPUS</a>
+                                   </div>
+                              </td>
                          </tr>
                     <?php } ?>
                </table>
@@ -132,7 +116,7 @@ foreach ($sample as $output) {
 
           if (yakin) {
                getBaseUrl();
-               window.location = uri + 'perawatan/hapus/' + i + '/' + id
+               window.location = uri + 'perawatan/hapus/' + i + '/'+ id
           }
      }
 
