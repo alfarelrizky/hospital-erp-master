@@ -1,6 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 $i   = $this->uri->segment(3);
-echo $i;
 $sample = $this->Model_perawatan->get_id($i)->result_array();
 foreach ($sample as $output) {
      $idnya = $output['id_rawat_inap'];
@@ -54,7 +53,7 @@ foreach ($sample as $output) {
                          <th>Diagnosis</th>
                          <th>Status Pasien</th>
                          <?php
-                         if (isset($id) and $id != '') {
+                         if (isset($idnya) and !empty($idnya)) {
                          ?>
                               <th>
                                    <a href="<?php echo base_url() . 'perawatan/tambah/' . $idnya ?>" style='font-size: 12px;display: block;box-shadow: -1px 1px black;color: black;width: 70%;height: 16px;padding: 5px 5px 10px 5px;color: black;background-color: #75ff86;Float: right;'>TAMBAH PERAWATAN</a>
@@ -80,7 +79,7 @@ foreach ($sample as $output) {
                               <td><?php echo $output['diagnosis'] ?></td>
                               <td name='<?php echo $output['status_pasien'] ?>'><?php echo $output['status_pasien'] ?></td>
                               <?php
-                              if (isset($id) and $id != '') {
+                              if (isset($idnya) and $idnya != '') {
                               ?>
                                    <td>
                                         <div style='display:block;width:100%;height:20px;padding:10px;'>
