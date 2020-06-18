@@ -27,7 +27,7 @@
                            <td><?php echo $row['kelas_rawat_inap'];?></td>
                            <td>
 <a href="<?php echo base_url()?>rawat_inap/edit_rawatinap/<?php echo $row['id_rawat_inap']; ?>"> Edit Data</a>                               
-<a href="<?php echo base_url()?>perawatan/tambah/<?php echo $row['id_rawat_inap']; ?>"> List Perawatan</a> 
+<a href="<?php echo base_url()?>perawatan/index/<?php echo $row['id_rawat_inap']; ?>"> List Perawatan</a> 
                            </td>
                       </tr>
                  <?php } ?>

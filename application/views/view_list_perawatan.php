@@ -1,7 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-     foreach ($data as $output) {
-          $idnya = $output['id_rawat_inap'];
-     }
+$i   = $this->uri->segment(3);
+echo $i;
+$sample = $this->Model_perawatan->get_id($i)->result_array();
+foreach ($sample as $output) {
+     $idnya = $output['id_rawat_inap'];
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,9 +53,17 @@
                          <th>Anamase</th>
                          <th>Diagnosis</th>
                          <th>Status Pasien</th>
-                         <th>
-                              <a href="<?php echo base_url().'perawatan/tambah/'.$idnya ?>" style='font-size: 12px;display: block;box-shadow: -1px 1px black;color: black;width: 70%;height: 16px;padding: 5px 5px 10px 5px;color: black;background-color: #75ff86;Float: right;'>TAMBAH PERAWATAN</a>
-                         </th>
+                         <?php
+                         if (isset($id) and $id != '') {
+                         ?>
+                              <th>
+                                   <a href="<?php echo base_url() . 'perawatan/tambah/' . $idnya ?>" style='font-size: 12px;display: block;box-shadow: -1px 1px black;color: black;width: 70%;height: 16px;padding: 5px 5px 10px 5px;color: black;background-color: #75ff86;Float: right;'>TAMBAH PERAWATAN</a>
+                              </th>
+                         <?php
+                         } else {
+                         }
+                         ?>
+
                     </tr>
                     <?php $i = 1;
                     foreach ($data as $output) {
@@ -68,12 +79,19 @@
                               <td><?php echo $output['anamase'] ?></td>
                               <td><?php echo $output['diagnosis'] ?></td>
                               <td name='<?php echo $output['status_pasien'] ?>'><?php echo $output['status_pasien'] ?></td>
-                              <td>
-                                   <div style='display:block;width:100%;height:20px;padding:10px;'>
-                                        <a style='box-shadow: -1px 1px black;display:inline;color:white;background-color:green;' href='<?php echo site_url('perawatan/edit/' . $output['id_perawatan']) ?>'> EDIT</a>
-                                        <a style='box-shadow: -1px 1px black;display:inline;color:white;background-color:RED;' onclick="tanyain('<?php echo $output['id_perawatan']; ?>','<?php echo $output['id_rawat_inap']; ?>','<?php echo $output['tanggal_periksa']; ?>','<?php echo $output['nama_dokter']; ?>')"> HAPUS</a>
-                                   </div>
-                              </td>
+                              <?php
+                              if (isset($id) and $id != '') {
+                              ?>
+                                   <td>
+                                        <div style='display:block;width:100%;height:20px;padding:10px;'>
+                                             <a style='box-shadow: -1px 1px black;display:inline;color:white;background-color:green;' href='<?php echo site_url('perawatan/edit/' . $output['id_perawatan']) ?>'> EDIT</a>
+                                             <a style='box-shadow: -1px 1px black;display:inline;color:white;background-color:RED;' onclick="tanyain('<?php echo $output['id_perawatan']; ?>','<?php echo $output['id_rawat_inap']; ?>','<?php echo $output['tanggal_periksa']; ?>','<?php echo $output['nama_dokter']; ?>')"> HAPUS</a>
+                                        </div>
+                                   </td>
+                              <?php
+                              } else {
+                              }
+                              ?>
                          </tr>
                     <?php } ?>
                </table>
@@ -115,7 +133,7 @@
 
           if (yakin) {
                getBaseUrl();
-               window.location = uri + 'perawatan/hapus/' + i + '/'+ id
+               window.location = uri + 'perawatan/hapus/' + i + '/' + id
           }
      }
 
