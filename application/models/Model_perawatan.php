@@ -14,7 +14,7 @@ class Model_perawatan extends CI_Model
     }
     public function get_id($id)
     {
-        $query = $this->db->query("SELECT id_rawat_inap FROM rawat_inap WHERE rawat_inap.id_rawat_inap = '$id' limit 1");
+        $query = $this->db->query("SELECT * FROM rawat_inap WHERE rawat_inap.id_rawat_inap = '$id' limit 1");
         return $query;
     }
     function insert_perawatan($id, $namadokter, $tanggalperiksa, $tindakan, $obat, $anamase, $diagnosis, $statuspasien)

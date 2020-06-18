@@ -126,7 +126,7 @@ defined('BASEPATH') or exit('No direct script access allowed'); ?>
                             <td>&nbsp;</td>
                             <td>:</td>
                             <td><input type="submit" style='background-color:green;color:white;width:50%;display:inline;' name="button" id="button" value=" EDIT">
-                                <a class="btn2" style='background-color:red;color:white;display:inline;' href="<?php echo base_url(); ?>perawatan/"> Kembali </a></td>
+                                <a class="btn2" style='background-color:red;color:white;display:inline;' href="<?php echo base_url(); ?>perawatan/index/<?php echo $output['id_rawat_inap']; ?>"> Kembali </a></td>
                         </tr>
                     </table>
                 <?php } ?>

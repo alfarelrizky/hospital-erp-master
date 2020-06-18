@@ -25,7 +25,7 @@ class Perawatan extends CI_Controller
 	}
 
 	public function tambah($id){
-		$data['data'] = $this->Model_perawatan->select_perawatan($id)->result_array();
+		$data['data'] = $this->Model_perawatan->get_id($id)->result_array();
 		$this->load->view('view_tambah_perawatan', $data);
 	}
 
