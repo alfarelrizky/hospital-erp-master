@@ -14,9 +14,14 @@ class Perawatan extends CI_Controller
 		if ($this->session->userdata('sess_role_akses') == 3 or $this->session->userdata('sess_role_akses') == 1) redirect('Login/logout', 'refresh');
     }
 
-    public function index($id){
-		$data['data'] = $this->Model_perawatan->select_perawatan($id)->result_array();
-		$this->load->view('view_list_perawatan', $data);
+    public function index($id = null){
+		if (empty($id) or $id=='') {
+			$data['data'] = $this->Model_perawatan->select_aja()->result_array();
+			$this->load->view('view_list_perawatan', $data);
+		}else{
+			$data['data'] = $this->Model_perawatan->select_perawatan($id)->result_array();
+			$this->load->view('view_list_perawatan', $data);
+		}
 	}
 
 	public function tambah($id){

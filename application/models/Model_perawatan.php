@@ -3,6 +3,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Model_perawatan extends CI_Model
 {
+    public function select_aja()
+    {
+        $query = $this->db->query("SELECT * FROM perawatan inner join rawat_inap WHERE rawat_inap.id_rawat_inap = perawatan.id_rawat_inap order by perawatan.tanggal_periksa asc");
+        return $query;
+    }
     public function select_perawatan($id){
         $query = $this->db->query("SELECT * FROM perawatan inner join rawat_inap WHERE rawat_inap.id_rawat_inap = perawatan.id_rawat_inap and perawatan.id_rawat_inap = '$id' order by perawatan.tanggal_periksa asc");
         return $query;
