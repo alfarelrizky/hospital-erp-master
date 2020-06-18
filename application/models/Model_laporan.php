@@ -13,4 +13,14 @@
     return $query;
   } // tutup function
 
+  function get_all_rawatinap(){
+    $query=$this->db->query("SELECT * FROM rawat_inap order by id_rawat_inap ASC");
+    return $query;
+  } // tutup function
+
+  function get_all_perawatan(){
+    $query=$this->db->query("SELECT * FROM perawatan order by id_perawatan ASC");
+    return $query;
+  } // tutup function
+
 } // tutup model
