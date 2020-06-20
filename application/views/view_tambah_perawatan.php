@@ -136,7 +136,7 @@ foreach ($data as $output) {
                         <td>&nbsp;</td>
                         <td>:</td>
                         <td><input type="submit" style='box-shadow: -1px 1px black;background-color:green;color:white;width:50%;display:inline;' name="button" id="button" value=" PROSES">
-                            <a class="btn2" style='box-shadow: -1px 1px black;background-color:red;color:white;display:inline;' href="<?php echo base_url(); ?>perawatan/"> Kembali </a></td>
+                            <a class="btn2" style='background-color:red;color:white;display:inline;' href="<?php echo base_url(); ?>perawatan/index/<?php echo $output['id_rawat_inap']; ?>"> Kembali </a></td>
                     </tr>
                 </table>
             </form>
