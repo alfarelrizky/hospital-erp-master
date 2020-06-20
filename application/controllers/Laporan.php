@@ -206,5 +206,193 @@
             $pdf->Output("{$filename}", "D");
 
   } // tutup function
+
+  public function export_pdf_data_rawatinap() {
+    // mengambil data dari model
+    // memanggil data dari databse
+    $datarawatinap = $this->model_laporan->get_all_rawatinap()->result_array();
+
+    $pdf = new TCPDF('', 'mm','A4', true, 'UTF-8', false);
+    // konfigurasi  
+    $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));  
+    $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));  
+    $pdf->SetTopMargin(20); // Margin atas
+    $pdf->setFooterMargin(10); // Margin Bawah 
+    $pdf->SetMargins('10', '10','10', '10');     
+    $pdf->SetAutoPageBreak(TRUE);  
+    $pdf->SetFont('helvetica', '', 10); 
+
+    // munculkan file
+    $pdf->AddPage('L');  
+    $html = '
+    <br><br> 
+    <img src="'.base_url().'images/logo_klinik.png" width="20px"> 
+    &nbsp; RS SENTOSA JAYA - RAWAT INAP :<br><br>
+    <table cellspacing="1" bgcolor="#666666" cellpadding="2" width="90%">
+      <tr bgcolor="#ffffff">
+        <th width="20%" align="center">ID Rawat Inap</th>
+        <th width="20%" align="center">ID Rekam Medis</th>
+        <th width="20%" align="center">Dokter Penanggungjawab</th>
+        <th width="20%" align="center">Kelas Rawat Inap</th>
+      </tr>';
+      // memecah data dari model dan menampilkannya di table
+      foreach ($datarawatinap as $row) {
+      $html.='<tr bgcolor="#ffffff">
+                <td align="center">'.$row['id_rawat_inap'].'</td>
+                <td>'.$row['id_rekam_medis'].'</td>
+                <td>'.$row['dokter_penanggungjawab'].'</td>
+                <td>'.$row['kelas_rawat_inap'].'</td>
+            </tr>';
+          }; // tutup foerach table
+          $html.='</table>'; // menyambung html table
+          $filename = "data-rawat-inap-".date("Y-m-d").".pdf";
+          $pdf->writeHTML($html);	
+          $pdf->Output("{$filename}", "D");
+
+} // tutup function
+
+Public function export_excel_data_rawatinap() {
+  // mengambil data dari model
+  $datarawatinap = $this->model_laporan->get_all_rawatinap()->result();
+
+  //inisiasi library
+  $spreadsheet = new Spreadsheet;
+  // membuat header kolom
+  $spreadsheet->setActiveSheetIndex(0)
+    ->setCellValue('A1', 'ID Rawat Inap')
+    ->setCellValue('B1', 'ID Rekam Medis')
+    ->setCellValue('C1', 'Dokter Penanggungjawab')
+    ->setCellValue('D1', 'Kelas Rawat Inap');
+    
+  //menjadikan setial kolom menjadi autosize, kolom harus didefinisikan dahulu
+  // jika range kolom lebih dari J. silahkan ditambahkan sesuai dengan kolom yang ingin dibuat
+  foreach(range('A','D') as $kolom_id){
+     $spreadsheet->getActiveSheet()->getColumnDImension($kolom_id)
+    ->setAutoSize(true); }
+
+  $kolom = 2; //untuk menambahkn cell kolom (A2, A3 dst), angka 2 adalah default !!
+
+  // Mengisi data pada kolom
+  foreach($datarawatinap as $row) {
+    $spreadsheet->setActiveSheetIndex(0)
+       ->setCellValue('A'.$kolom, $row->id_rawat_inap)
+       ->setCellValue('B'.$kolom, $row->id_rekam_medis)
+       ->setCellValue('C'.$kolom, $row->dokter_penanggungjawab)
+       ->setCellValue('D'.$kolom, $row->kelas_rawat_inap);
+    $kolom++;
+  } // tutup foreach data
+
+// MEMBUAT FILE
+$writer = new Xlsx($spreadsheet);
+$filename = "data-rawat-inap-".date("Y-m-d").".csv";
+// MEMUNCULKAN FILE UNTUK DI DOWNLOAD
+header('Content-Type: application/vnd.ms-excel');
+header("Content-Disposition: attachment;filename={$filename}");
+$writer->save('php://output');
+} // tutup function
+
+public function export_pdf_data_perawatan() {
+  // mengambil data dari model
+  // memanggil data dari databse
+  $dataperawatan = $this->model_laporan->get_all_perawatan()->result_array();
+
+  $pdf = new TCPDF('', 'mm','A4', true, 'UTF-8', false);
+  // konfigurasi  
+  $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));  
+  $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));  
+  $pdf->SetTopMargin(20); // Margin atas
+  $pdf->setFooterMargin(10); // Margin Bawah 
+  $pdf->SetMargins('10', '10','10', '10');     
+  $pdf->SetAutoPageBreak(TRUE);  
+  $pdf->SetFont('helvetica', '', 10); 
+
+  // munculkan file
+  $pdf->AddPage('L');  
+  $html = '
+  <br><br> 
+  <img src="'.base_url().'images/logo_klinik.png" width="20px"> 
+  &nbsp; RS SENTOSA JAYA - PERAWATAN :<br><br>
+  <table cellspacing="1" bgcolor="#666666" cellpadding="2" width="90%">
+    <tr bgcolor="#ffffff">
+      <th width="10%" align="center">ID Perawatan</th>
+      <th width="10%" align="center">ID Rawat Inap</th>
+      <th width="20%" align="center">Nama dokter</th>
+      <th width="15%" align="center">Tanggal Periksa</th>
+      <th width="10%" align="center">Tindakan</th>
+      <th width="10%" align="center">Obat</th>
+      <th width="10%" align="center">Anamase</th>
+      <th width="10%" align="center">Diagnosis</th>
+      <th width="10%" align="center">Status Pasien</th>
+    </tr>';
+    // memecah data dari model dan menampilkannya di table
+    foreach ($dataperawatan as $row) {
+    $html.='<tr bgcolor="#ffffff">
+              <td align="center">'.$row['id_perawatan'].'</td>
+              <td align="center">'.$row['id_rawat_inap'].'</td>
+              <td align="center">'.$row['nama_dokter'].'</td>
+              <td align="center">'.$row['tanggal_periksa'].'</td>
+              <td align="center">'.$row['tindakan'].'</td>
+              <td align="center">'.$row['obat'].'</td>
+              <td align="center">'.$row['anamase'].'</td>
+              <td align="center">'.$row['diagnosis'].'</td>
+              <td align="center">'.$row['status_pasien'].'</td>
+          </tr>';
+        }; // tutup foerach table
+        $html.='</table>'; // menyambung html table
+        $filename = "data-perawatan-".date("Y-m-d").".pdf";
+        $pdf->writeHTML($html);	
+        $pdf->Output("{$filename}", "D");
+
+} // tutup function
+
+Public function export_excel_data_perawatan() {
+// mengambil data dari model
+$datarawatinap = $this->model_laporan->get_all_rawatinap()->result();
+
+//inisiasi library
+$spreadsheet = new Spreadsheet;
+// membuat header kolom
+$spreadsheet->setActiveSheetIndex(0)
+  ->setCellValue('A1', 'ID Perawatan')
+  ->setCellValue('B1', 'ID Rawat Inap')
+  ->setCellValue('C1', 'Nama Dokter')
+  ->setCellValue('D1', 'Tanggal Periksa')
+  ->setCellValue('E1', 'Tindakan')
+  ->setCellValue('F1', 'Obat')
+  ->setCellValue('G1', 'Anamase')
+  ->setCellValue('H1', 'Diagnosis')
+  ->setCellValue('I1', 'Status Pasien');
+  
+//menjadikan setial kolom menjadi autosize, kolom harus didefinisikan dahulu
+// jika range kolom lebih dari J. silahkan ditambahkan sesuai dengan kolom yang ingin dibuat
+foreach(range('A','I') as $kolom_id){
+   $spreadsheet->getActiveSheet()->getColumnDImension($kolom_id)
+  ->setAutoSize(true); }
+
+$kolom = 2; //untuk menambahkn cell kolom (A2, A3 dst), angka 2 adalah default !!
+
+// Mengisi data pada kolom
+foreach($datarawatinap as $row) {
+  $spreadsheet->setActiveSheetIndex(0)
+     ->setCellValue('A'.$kolom, $row->id_perawatan)
+     ->setCellValue('B'.$kolom, $row->id_rawat_inap)
+     ->setCellValue('C'.$kolom, $row->nama_dokter)
+     ->setCellValue('D'.$kolom, $row->tanggal_periksa)
+     ->setCellValue('D'.$kolom, $row->tindakan)
+     ->setCellValue('D'.$kolom, $row->obat)
+     ->setCellValue('D'.$kolom, $row->anamase)
+     ->setCellValue('D'.$kolom, $row->diagnosis)
+     ->setCellValue('D'.$kolom, $row->status_pasien);
+  $kolom++;
+} // tutup foreach data
+
+// MEMBUAT FILE
+$writer = new Xlsx($spreadsheet);
+$filename = "data-rawat-inap-".date("Y-m-d").".csv";
+// MEMUNCULKAN FILE UNTUK DI DOWNLOAD
+header('Content-Type: application/vnd.ms-excel');
+header("Content-Disposition: attachment;filename={$filename}");
+$writer->save('php://output');
+} // tutup function
         
 } // tutup controller 
