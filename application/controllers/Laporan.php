@@ -347,7 +347,7 @@ public function export_pdf_data_perawatan() {
 
 Public function export_excel_data_perawatan() {
 // mengambil data dari model
-$datarawatinap = $this->model_laporan->get_all_rawatinap()->result();
+$dataperawatan = $this->model_laporan->get_all_perawatan()->result();
 
 //inisiasi library
 $spreadsheet = new Spreadsheet;
@@ -372,23 +372,23 @@ foreach(range('A','I') as $kolom_id){
 $kolom = 2; //untuk menambahkn cell kolom (A2, A3 dst), angka 2 adalah default !!
 
 // Mengisi data pada kolom
-foreach($datarawatinap as $row) {
+foreach($dataperawatan as $row) {
   $spreadsheet->setActiveSheetIndex(0)
      ->setCellValue('A'.$kolom, $row->id_perawatan)
      ->setCellValue('B'.$kolom, $row->id_rawat_inap)
      ->setCellValue('C'.$kolom, $row->nama_dokter)
      ->setCellValue('D'.$kolom, $row->tanggal_periksa)
-     ->setCellValue('D'.$kolom, $row->tindakan)
-     ->setCellValue('D'.$kolom, $row->obat)
-     ->setCellValue('D'.$kolom, $row->anamase)
-     ->setCellValue('D'.$kolom, $row->diagnosis)
-     ->setCellValue('D'.$kolom, $row->status_pasien);
+     ->setCellValue('E'.$kolom, $row->tindakan)
+     ->setCellValue('F'.$kolom, $row->obat)
+     ->setCellValue('G'.$kolom, $row->anamase)
+     ->setCellValue('H'.$kolom, $row->diagnosis)
+     ->setCellValue('I'.$kolom, $row->status_pasien);
   $kolom++;
 } // tutup foreach data
 
 // MEMBUAT FILE
 $writer = new Xlsx($spreadsheet);
-$filename = "data-rawat-inap-".date("Y-m-d").".csv";
+$filename = "data-perawatan-".date("Y-m-d").".csv";
 // MEMUNCULKAN FILE UNTUK DI DOWNLOAD
 header('Content-Type: application/vnd.ms-excel');
 header("Content-Disposition: attachment;filename={$filename}");
