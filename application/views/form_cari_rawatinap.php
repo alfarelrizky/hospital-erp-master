@@ -19,7 +19,7 @@
      <!-- LIST MENU -->
      <li><a class="btn2" href="<?php echo base_url(); ?>rawat_inap">Reload Data Rawat Inap</a></li>
      <li><a class="btn2" href="<?php echo base_url(); ?>rawat_inap/registrasi_rawatinap">Registrasi Rawat Inap</a></li>
-     <li><a class="btn2" href="<?php echo base_url(); ?>laporan/export_excel_data_dokter">Export Excel</a></li>
-     <li><a class="btn2" href="<?php echo base_url(); ?>laporan/export_pdf_data_dokter">Export PDF</a></li>
+     <li><a class="btn2" href="<?php echo base_url(); ?>laporan/export_excel_data_rawatinap">Export Excel</a></li>
+     <li><a class="btn2" href="<?php echo base_url(); ?>laporan/export_pdf_data_rawatinap">Export PDF</a></li>
 </ul>
 </div>
