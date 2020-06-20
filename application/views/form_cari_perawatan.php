@@ -24,5 +24,6 @@
      <!-- LIST MENU -->
      <li><a class="btn2" href="<?php echo base_url(); ?>laporan/export_excel_data_perawatan">Export Excel</a></li>
      <li><a class="btn2" href="<?php echo base_url(); ?>laporan/export_pdf_data_perawatan">Export PDF</a></li>
+     <a href='<?php echo base_url('Homepage') ?>'><button style='display:block;box-shadow: -1px 1px black;color:white;width:100px;height:30px;color:white;background-color:blue;Float:right;'> KEMBALI</button></a>
 </ul>
 </div>

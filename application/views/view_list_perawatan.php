@@ -17,7 +17,7 @@ foreach ($sample as $output) {
      <div id="container">
           <div id="body">
                <h1>List Data Rawat Inap </h1>
-               <a href='<?php echo base_url('Homepage') ?>'><button style='display:block;box-shadow: -1px 1px black;color:white;width:100px;height:30px;color:white;background-color:blue;Float:left;'> KEMBALI</button></a>
+               <?php include "form_cari_perawatan.php"; ?>
                <table id="gp_tabel" width="100%" style='box-shadow: -3px 3px #b5adad;' align='center'>
                     <?php
                     if (empty($this->session->flashdata('alert')) && empty($this->session->flashdata('alert-stat'))) {
