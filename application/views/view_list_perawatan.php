@@ -9,14 +9,14 @@ foreach ($sample as $output) {
 <html>
 
 <head>
-     <title> Rawat Inap </title>
+     <title> Perawatan </title>
      <link rel="stylesheet" type="text/css" href="<?php echo base_url() . "/style/desain.css" ?>">
 </head>
 
 <body>
      <div id="container">
           <div id="body">
-               <h1>List Data Rawat Inap </h1>
+               <h1>List Data Perawatan </h1>
                <?php include "form_cari_perawatan.php"; ?>
                <table id="gp_tabel" width="100%" style='box-shadow: -3px 3px #b5adad;' align='center'>
                     <?php
