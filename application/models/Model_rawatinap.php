@@ -67,4 +67,10 @@ class Model_rawatinap extends CI_Model
         $this->db->insert("rawat_inap", $data_rawatinap);
         return $data_rawatinap;
     }
+
+    function get_detail_rawatinap($id_rawatinap)
+    {
+      $query = $this->db->query("SELECT * FROM rawat_inap where id_rawat_inap = '$id_rawatinap'");
+      return $query;
+    }
 }

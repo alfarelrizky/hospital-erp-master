@@ -20,9 +20,13 @@ class Model_grafik extends CI_Model{
  } // tutup function
 
 
- function qry_jk_pasien() {
-    $data = $this->db->query("SELECT jenis_kelamin, COUNT(*) as 'jumlahnya'
-    FROM tbl_pasien GROUP BY jenis_kelamin");
-    return $data->result();
-    }
+   function qry_jk_pasien() {
+      $data = $this->db->query("SELECT jenis_kelamin, COUNT(*) as 'jumlahnya' FROM tbl_pasien GROUP BY jenis_kelamin");
+      return $data->result();
+   }
+    
+   public function graph_rawatinap(){
+      $data = $this->db->query("SELECT COUNT(id_rawat_inap) as jumlah, kelas_rawat_inap FROM `rawat_inap` GROUP BY kelas_rawat_inap");
+      return $data->result();
+   }
 } // tutup model

@@ -95,8 +95,8 @@ class Rawat_inap extends CI_Controller
 	// fungsi edit data rawat inap
 	public function edit_rawatinap(){
 		$this->load->view('view_form_edit_data_rawatinap');
-	}
-
+    }
+    
 	// fungsi registrasi rawat inap
 	public function registrasi_rawatinap(){
 		$this->load->view('view_form_registrasi_rawatinap');
@@ -104,8 +104,87 @@ class Rawat_inap extends CI_Controller
 
 	// fungsi cari rawat inap
 	public function cari(){
-		$this->load->view('#');
-	}
+		//mengambil kriteria dan kata kucni dari form pencarian
+        $kriteria   = (trim(html_escape($this->input->post('txt_kriteria'))));
+        $kata_kunci = (trim(html_escape($this->input->post('txt_katakunci'))));
+
+        //memuat kriteria pencarian ke URI segment 3
+        $kriteria   = ($this->uri->segment(3)) ? $this->uri->segment(3) : $kriteria;
+
+        //memuat kata kunci pencarian ke URI segment 4
+        $kata_kunci   = ($this->uri->segment(4)) ? $this->uri->segment(4) : $kata_kunci;
+
+        // Karena segment 3 dan 4 sudah digunakan untuk menampung keywords, 
+        // URI segment yang diambil untuk batas awal data diubah ke URI Segemen-5
+        $dari     = $this->uri->segment('5');
+
+        if (empty($dari)) {
+            $dari = 0;
+        } else {
+            $dari = $dari;
+        }
+
+        if ($kriteria == '') {
+            $kriteria = 'nama_pasien';
+        } else {
+            $kriteria = $kriteria;
+        }
+
+        //baris data pada halaman yang akan ditampilkan
+        $sampai = 5;
+
+        //hitung jumlah row data
+        $jumlah = $this->model_pasien->get_jumlah_data($kriteria, $kata_kunci);
+
+        //inisialisasi fungsi pagination
+        $config = array();
+
+        //set base_url untuk setiap link page
+        // PENAMBAHAN $kriteria ke URI segment 3 dan $kata_kunci ke URI segment 4
+        $config['base_url'] = base_url() . "pasien/cari/" . $kriteria . "/" . $kata_kunci;
+
+        //hitung jumlah row
+        $config['total_rows'] = $jumlah;
+
+        //mengatur total data yang tampil per page
+        $config['per_page'] = $sampai;
+
+        //mengatur kolom nomor halaman yang tampil (1 Default, untuk menampilkan 2-3 halaman)
+        $config['num_links'] = 1;
+
+        //mengatur tag
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $config['next_tag_open'] = "<li>";
+        $config['next_tagl_close'] = "</li>";
+        $config['prev_tag_open'] = "<li>";
+        $config['prev_tagl_close'] = "</li>";
+        $config['first_tag_open'] = "<li>";
+        $config['first_tagl_close'] = "</li>";
+        $config['last_tag_open'] = "<li>";
+        $config['last_tagl_close'] = "</li>";
+        $config['cur_tag_open'] = '&nbsp;<a class="current">';
+        $config['cur_tag_close'] = '</a>';
+        $config['next_link'] = ' Next ';
+        $config['prev_link'] = ' Previous ';
+
+        //inisialisasi array 'config' dan set ke pagination library
+        $this->pagination->initialize($config);
+
+        //inisialisasi untuk menampilkan data
+        $data = array();
+
+        //ambil data dari database
+        $data['data_pasien'] = $this->model_pasien->get_data($dari, $sampai, $kriteria, $kata_kunci);
+
+
+        //Membuat link
+        $str_links = $this->pagination->create_links();
+        $data["links"] = explode('&nbsp;', $str_links);
+        $data['title'] = 'APSS DATA PASIEN Ver-1.0';
+
+        $this->load->view('view_pencarianpasien', $data);
+    }
 
 	public function proses_daftar_rawat_inap(){
 		//valid

@@ -21,5 +21,6 @@
      <li><a class="btn2" href="<?php echo base_url(); ?>rawat_inap/registrasi_rawatinap">Registrasi Rawat Inap</a></li>
      <li><a class="btn2" href="<?php echo base_url(); ?>laporan/export_excel_data_rawatinap">Export Excel</a></li>
      <li><a class="btn2" href="<?php echo base_url(); ?>laporan/export_pdf_data_rawatinap">Export PDF</a></li>
+     <li><a class="btn2" href="<?php echo base_url(); ?>grafik/lihat_grafik">Lihat Grafik</a></li>
 </ul>
 </div>

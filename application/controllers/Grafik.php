@@ -12,7 +12,11 @@ class Grafik extends CI_Controller {
         $this->load->view('view_grafik_pasien',$data);
     } // tutup fucntion
 
-
+    Public function lihat_grafik(){
+        $data['data_rawatinap'] = $this->model_grafik->graph_rawatinap();
+        $this->load->view('view_grafik_rawatinap',$data);
+    } // tutup fucntion
+    
     Public function pie_chart(){
         $data['data_pasien'] = $this->model_grafik->qry_jk_pasien();
         $this->load->view('view_grafik_pasien_pie',$data);
